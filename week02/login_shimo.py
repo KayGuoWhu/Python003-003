@@ -32,13 +32,14 @@ def login_request():
     ua = UserAgent(verify_ssl=False)
     headers = {
     'User-Agent' : ua.random,
-    'Referer' : 'https://shimo.im/login'
+    'Referer' : 'https://shimo.im/login',
+    'X-Requested-With' : 'XmlHttpRequest' # 请求头，区分ajax请求还是普通请求
     }
     # 用户名和密码隐藏掉
     form_data = {
-    'email':'*******',
-    'mobile':'',
-    'password':'*******'
+    'email' : '******@qq.com',
+    'mobile' : '+86undefined',
+    'password' : '******'
     }
     s = requests.Session()
 
@@ -46,17 +47,17 @@ def login_request():
     pre_login = 'https://shimo.im/login?from=home'
     pre_resp = s.get(pre_login, headers=headers)
     print(pre_resp.status_code)
-    # print(s.cookies)
 
     # post用户名和密码
     login_url = 'https://shimo.im/lizard-api/auth/password/login'
     response = s.post(login_url, data=form_data, headers=headers, cookies=s.cookies)
-    # print(response.text)
+    print(response.status_code)
 
-def test():
-    r = requests.get('https://shimo.im/login?from=home')
-    print(r.status_code)
-    print(r.headers['content-type'])
+    # 登陆后可以进行后续的请求
+    url2 = 'https://shimo.im/profile'
+
+    response2 = s.get(url2,headers = headers)
+    print(response2.status_code)
 
 if __name__ == "__main__":
     login_request()

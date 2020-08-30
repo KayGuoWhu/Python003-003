@@ -25,4 +25,5 @@ https://github.com/clarketm/proxy-list/blob/master/proxy-list-raw.txt
 
 
 ## 作业二
-1. 先下载对应浏览器chromedriver，解压到python3 bin目录。
+1. 使用selenium：先下载对应浏览器chromedriver，解压到python3 bin目录。
+2. 使用requests：post请求时，遇到403错误。header中添加"x-requested-with: XmlHttpRequest"后解决，这个参数用于区分Ajax请求和普通请求。
